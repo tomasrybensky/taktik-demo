@@ -26,7 +26,6 @@ class RollerCoasterController extends Controller
 
                 $rollerCoasters = RollerCoaster::query()
                     ->applyRollerCoasterFilters($filters)
-                    ->withAverageRating()
                     ->with(['manufacturer', 'themePark'])
                     ->paginate(request()->query('per_page', 10));
 

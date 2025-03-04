@@ -9,42 +9,31 @@ class RollerCoasterBuilder extends Builder
 {
     public function applyRollerCoasterFilters(ListRollerCoastersFilters $filters): static
     {
-        if ($filters->manufacturerId) {
-            $this->where('manufacturer_id', $filters->manufacturerId);
-        }
-        if ($filters->themeParkId) {
-            $this->where('theme_park_id', $filters->themeParkId);
-        }
-        if ($filters->minSpeed) {
-            $this->where('speed', '>=', $filters->minSpeed);
-        }
-        if ($filters->maxSpeed) {
-            $this->where('speed', '<=', $filters->maxSpeed);
-        }
-        if ($filters->minHeight) {
-            $this->where('height', '>=', $filters->minHeight);
-        }
-        if ($filters->maxHeight) {
-            $this->where('height', '<=', $filters->maxHeight);
-        }
-        if ($filters->minLength) {
-            $this->where('length', '>=', $filters->minLength);
-        }
-        if ($filters->maxLength) {
-            $this->where('length', '<=', $filters->maxLength);
-        }
-        if ($filters->minInversions) {
-            $this->where('inversions', '>=', $filters->minInversions);
-        }
-        if ($filters->maxInversions) {
-            $this->where('inversions', '<=', $filters->maxInversions);
+        $filterMappings = [
+            'manufacturerId' => 'manufacturer_id',
+            'themeParkId' => 'theme_park_id',
+            'minSpeed' => ['speed', '>='],
+            'maxSpeed' => ['speed', '<='],
+            'minHeight' => ['height', '>='],
+            'maxHeight' => ['height', '<='],
+            'minLength' => ['length', '>='],
+            'maxLength' => ['length', '<='],
+            'minInversions' => ['inversions', '>='],
+            'maxInversions' => ['inversions', '<='],
+        ];
+
+        foreach ($filterMappings as $filterKey => $dbColumn) {
+            if ($filters->$filterKey) {
+                if (is_array($dbColumn)) {
+                    [$dbColumnName, $operator] = $dbColumn;
+                    $this->where($dbColumnName, $operator, $filters->$filterKey);
+                } else {
+                    $this->where($dbColumn, $filters->$filterKey);
+                }
+            }
         }
 
         $this->sortBy($filters->sortBy ?? 'rating', $filters->sortDirection ?? 'desc');
-
-        if ($filters->groupBy) {
-            $this->groupBy($filters->groupBy);
-        }
 
         return $this;
     }

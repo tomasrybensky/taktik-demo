@@ -19,7 +19,6 @@ class ListRollerCoastersFilters extends Data
         public ?int $maxSpeed = null,
         public int $perPage = 10,
         public int $page = 1,
-        public ?string $groupBy = null,
         public ?string $sortBy = null,
         public ?string $sortDirection = null,
     ) {}

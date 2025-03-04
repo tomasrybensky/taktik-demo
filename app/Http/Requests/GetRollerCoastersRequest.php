@@ -34,7 +34,6 @@ class GetRollerCoastersRequest extends FormRequest
             'maxInversions' => ['integer', 'min:0'],
             'sortBy' => ['string', 'in:name,height,length,speed,inversions,rating'],
             'sortDirection' => ['string', 'in:asc,desc'],
-            'groupBy' => ['string', 'in:theme_park_id,manufacturer_id'],
         ];
     }
 }

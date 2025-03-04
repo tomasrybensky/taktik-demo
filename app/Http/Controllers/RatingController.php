@@ -8,6 +8,7 @@ use App\Models\Rating;
 use App\Models\RollerCoaster;
 use App\Models\ThemePark;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class RatingController extends Controller
 {
@@ -16,7 +17,7 @@ class RatingController extends Controller
         CreateOrUpdateRatingRequest $request
     ): RatingResource {
         if (! auth()->user()->can('update', $rating)) {
-            abort(403);
+            abort(Response::HTTP_FORBIDDEN);
         }
 
         $rating->update($request->validated());
@@ -27,7 +28,7 @@ class RatingController extends Controller
     public function destroy(Rating $rating): JsonResponse
     {
         if (! auth()->user()->can('delete', $rating)) {
-            abort(403);
+            abort(Response::HTTP_FORBIDDEN);
         }
 
         if (auth()->user()->can('delete', $rating)) {

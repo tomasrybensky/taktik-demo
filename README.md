@@ -8,4 +8,5 @@
 - php `artisan migrate --seed`
 
 ## Usage
-Api docs are available at `/docs/api` route
+- Api docs are available at `/docs/api` route
+- Test user can be created with `php artisan app:generate-test-user` command
