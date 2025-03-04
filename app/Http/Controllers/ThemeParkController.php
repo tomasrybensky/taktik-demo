@@ -21,7 +21,8 @@ class ThemeParkController extends Controller
             config('cache.default_ttl'),
             function () {
                 $themeParks = ThemePark::query()
-                    ->withAverageRatings()
+                    ->withAverageRating()
+                    ->withCount('rollerCoasters')
                     ->orderBy('name')
                     ->get();
 

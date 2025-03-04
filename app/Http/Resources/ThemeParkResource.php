@@ -14,7 +14,7 @@ class ThemeParkResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'average_rating' => $this->ratings_avg_rating ?? null,
-            'roller_coasters_average_rating' => $this->roller_coasters_avg_rating ?? null,
+            'roller_coasters_count' => $this->roller_coasters_count ?? null,
             'roller_coasters' => RollerCoasterResource::collection($this->whenLoaded('rollerCoasters')),
 
             // Ratings should be paginated in separate endpoint in real app

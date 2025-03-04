@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ThemeParkBuilder extends Builder
 {
-    public function withAverageRatings(): static
+    public function withAverageRating(): static
     {
         return $this->withAvg('ratings', 'rating');
     }
